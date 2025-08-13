@@ -3,13 +3,10 @@ import os
 import time
 import json
 
-# Default folder to monitor (change if needed)
 FOLDER_TO_MONITOR = r"C:\Users\Admin\Desktop"
 
-# File to store hashes
 HASH_FILE = "file_hashes.json"
 
-# Function to calculate SHA-256 hash of a file
 def calculate_hash(file_path):
     hash_obj = hashlib.sha256()
     try:
@@ -20,19 +17,16 @@ def calculate_hash(file_path):
     except FileNotFoundError:
         return None
 
-# Load stored hashes
 def load_hashes():
     if os.path.exists(HASH_FILE):
         with open(HASH_FILE, "r") as f:
             return json.load(f)
     return {}
 
-# Save updated hashes
 def save_hashes(hashes):
     with open(HASH_FILE, "w") as f:
         json.dump(hashes, f, indent=4)
 
-# Monitor the folder for changes
 def monitor_directory():
     print(f"Monitoring changes in: {FOLDER_TO_MONITOR}")
     stored_hashes = load_hashes()
